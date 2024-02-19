@@ -1,118 +1,86 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { NavigationContainer } from '@react-navigation/native'
+import React, { useEffect } from 'react'
+import StackNavigator from './src/Screen/StackNavigator'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Store from './src/Redux/Store'
+import { Provider } from 'react-redux'
+import SplashScreen from 'react-native-splash-screen';
+import Toast from 'react-native-toast-message'
+import ToastMessage from './src/Component/ToastMessage'
+import NavigationService from './src/Component/NavigationService'
+import messaging from '@react-native-firebase/messaging';
+import { PermissionsAndroid, Platform } from 'react-native'
+import ForegroundHandler from './src/ForegroundHandler'
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+const App = () => {
+  const handleAppStateChange = async () => {
+    const initialNotification = await messaging().getInitialNotification();
+    if (initialNotification) {
+      setTimeout(() => {
+        NavigationService.navigate("MessageScreen",
+          { data: initialNotification.data, state: 'Kill App' }
+        )
+      }, 1200)
+    }
   };
 
+  const notification = async () => {
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      if (!!remoteMessage?.data && remoteMessage?.data) {
+        setTimeout(() => {
+          NavigationService.navigate("MessageScreen", { data: remoteMessage?.data })
+        }, 1200)
+      }
+    })
+  }
+
+  const requestUserPermission = async () => {
+    const authStatus: any = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    if (enabled) {
+    }
+  }
+
+  useEffect(() => {
+    if (Platform.OS == 'android') {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS).then((res) => {
+        if (!!res && res == 'granted') {
+          requestUserPermission()
+        }
+      }).catch(error => {
+        return error
+      })
+    } else {
+
+    }
+  }, [])
+
+  useEffect(() => {
+    notification()
+    handleAppStateChange()
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
+  })
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+    <>
+      <ForegroundHandler />
+      <NavigationContainer ref={(ref) => NavigationService.setTopLevelNavigator(ref)}>
+        <Provider store={Store}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <StackNavigator />
+            <Toast config={ToastMessage} />
+          </GestureHandlerRootView>
+        </Provider>
+      </NavigationContainer>
+    </>
+  )
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default App

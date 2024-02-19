@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "1013176259145",
+    "firebase_url": "https://thenomtrainingapp-default-rtdb.firebaseio.com",
+    "project_id": "thenomtrainingapp",
+    "storage_bucket": "thenomtrainingapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013176259145:android:07d9d313a3e2d0f0592598",
+        "android_client_info": {
+          "package_name": "com.nom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013176259145-8d0c8j839gol3h332oklrg1ol4opokgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdcV-o_5f1jbY0lEDtFgvfcaxEY7soX6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013176259145-8d0c8j839gol3h332oklrg1ol4opokgb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1013176259145-5ttid1a6ff6vgp7hkh45r3nht7hivhnt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.app.flutterApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013176259145:android:774e6bbb3b226dd6592598",
+        "android_client_info": {
+          "package_name": "io.app.nomapp.nom_training"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013176259145-8d0c8j839gol3h332oklrg1ol4opokgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdcV-o_5f1jbY0lEDtFgvfcaxEY7soX6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013176259145-8d0c8j839gol3h332oklrg1ol4opokgb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1013176259145-5ttid1a6ff6vgp7hkh45r3nht7hivhnt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.app.flutterApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013176259145:android:ce74ed46ca0e126a592598",
+        "android_client_info": {
+          "package_name": "io.app.training_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013176259145-8d0c8j839gol3h332oklrg1ol4opokgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdcV-o_5f1jbY0lEDtFgvfcaxEY7soX6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013176259145-8d0c8j839gol3h332oklrg1ol4opokgb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1013176259145-5ttid1a6ff6vgp7hkh45r3nht7hivhnt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.app.flutterApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
